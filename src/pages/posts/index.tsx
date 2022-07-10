@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { trpc } from '../utils/trpc'
+import { trpc } from '../../utils/trpc'
 
-import dancecat from '../../public/dancecat.gif'
-import zoomies from '../../public/zoomies.gif'
+import dancecat from '../../../public/dancecat.gif'
+import zoomies from '../../../public/zoomies.gif'
 import Link from 'next/link'
-const Home: NextPage = () => {
+const Posts: NextPage = () => {
   // const { data, isLoading } = trpc.useQuery([
   //   'example.hello',
   //   { text: ' Michael' },
@@ -55,40 +55,19 @@ const Home: NextPage = () => {
         </div>
         <div className="mx-8">
           <h3 className="font-extrabold text-1xl text-primary_blue">
-            Policy & Safety
+            Post List
           </h3>
           <h1 className="text-3xl font-bold hover:cursor-pointer hover:text-primary_blue">
             {data && data.map((post) => post.title)}
           </h1>
         </div>
         <div className="w-4/5 mx-8 my-4">
-          <p>
-            We recognize that safety enables people to find belonging. That is
-            why safety is one of Discord’s most important priorities and
-            investments as a company. Our Engineering, Data, and Product teams
-            work with safety principles in mind when building products. Our
-            Policy team takes a nuanced and sophisticated approach to developing
-            our Community Guidelines and forms strategic partnerships with
-            academics, civil society, industry peers, and moderators to advance
-            our collective understanding of online safety. Our Trust & Safety
-            team works with cutting-edge technology to detect and respond to
-            abuse, both proactively and from users, moderators, and trusted
-            third party reporters. This expansive effort and commitment to
-            safety brings together around 15% of all Discord employees. We’re
-            continuously expanding our efforts to help ensure that everyone can
-            have a safer experience that allows for belonging on Discord.
-            Transparency is one of the core values of our safety work at
-            Discord. These Transparency Reports are a way to demonstrate our
-            commitment and provide insight into the enormous effort that goes
-            into keeping Discord a safe place for all.
-          </p>
-          <div className="w-32 p-2 font-bold text-center text-white rounded bg-primary_red">
-            <Link href="/posts/new">Create Post</Link>
-          </div>
+          <p> {data && data.map((post) => post.content)}</p>
+          <div className="w-32 p-2 font-bold text-center text-white rounded bg-primary_red"></div>
         </div>
       </div>
     </>
   )
 }
 
-export default Home
+export default Posts
