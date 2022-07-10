@@ -1,6 +1,7 @@
 import { createRouter } from './context'
 import { z } from 'zod'
 import { resolve } from 'path'
+import { createPostSchema } from '../../schema/posts.schema'
 
 export const postRouter = createRouter()
   .query('getAllPosts', {
@@ -9,10 +10,7 @@ export const postRouter = createRouter()
     },
   })
   .mutation('createPost', {
-    input: z.object({
-      title: z.string(),
-      content: z.string(),
-    }),
+    input: createPostSchema,
     async resolve({ ctx, input }) {
       return await ctx.prisma.post.create({
         data: {

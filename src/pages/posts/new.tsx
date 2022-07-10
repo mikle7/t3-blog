@@ -4,16 +4,16 @@ import Image from 'next/image'
 import { trpc } from '../../utils/trpc'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
+import { CreatePostSchema } from '../../schema/posts.schema'
 
 const NewPost: NextPage = () => {
   const router = useRouter()
   const { mutate, error } = trpc.useMutation(['posts.createPost'])
+  const { handleSubmit, register } = useForm<CreatePostSchema>()
 
-  const handleSubmit = () => {
-    mutate({
-      title: 'Hello World',
-      content: 'This is a test post',
-    })
+  const onSubmit = (values: CreatePostSchema) => {
+    mutate(values)
   }
 
   return (
@@ -42,7 +42,11 @@ const NewPost: NextPage = () => {
             New Post
           </h3>
         </div>
-        <button onClick={handleSubmit}>Add Test post</button>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input type="text" placeholder="Title" {...register('title')} />
+          <textarea placeholder="Content" {...register('content')} />
+        </form>
+        {/* <button onClick={handleSubmit}>Add Test post</button> */}
       </div>
     </>
   )
