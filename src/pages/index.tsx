@@ -51,6 +51,28 @@ const Home: NextPage = () => {
             DISCORD TRANSPARENCY REPORT: JANUARY - MARCH 2022
           </h1>
         </div>
+        <div className="w-4/5 mx-8 my-4">
+          <p>
+            We recognize that safety enables people to find belonging. That is
+            why safety is one of Discord’s most important priorities and
+            investments as a company. Our Engineering, Data, and Product teams
+            work with safety principles in mind when building products. Our
+            Policy team takes a nuanced and sophisticated approach to developing
+            our Community Guidelines and forms strategic partnerships with
+            academics, civil society, industry peers, and moderators to advance
+            our collective understanding of online safety. Our Trust & Safety
+            team works with cutting-edge technology to detect and respond to
+            abuse, both proactively and from users, moderators, and trusted
+            third party reporters. This expansive effort and commitment to
+            safety brings together around 15% of all Discord employees. We’re
+            continuously expanding our efforts to help ensure that everyone can
+            have a safer experience that allows for belonging on Discord.
+            Transparency is one of the core values of our safety work at
+            Discord. These Transparency Reports are a way to demonstrate our
+            commitment and provide insight into the enormous effort that goes
+            into keeping Discord a safe place for all.
+          </p>
+        </div>
       </div>
     </>
   )
