@@ -42,11 +42,27 @@ const NewPost: NextPage = () => {
             New Post
           </h3>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input type="text" placeholder="Title" {...register('title')} />
-          <textarea placeholder="Content" {...register('content')} />
-        </form>
-        {/* <button onClick={handleSubmit}>Add Test post</button> */}
+        <div className="container justify-center mx-auto">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col items-center p-10 m-10"
+          >
+            <input
+              type="text"
+              placeholder="Title"
+              {...register('title')}
+              className="w-3/5 p-2 border-t-2 border-gray-500 border-x-2"
+            />
+            <textarea
+              placeholder="Content"
+              {...register('content')}
+              className="w-3/5 p-2 border-2 border-gray-500"
+            />
+            <button className="p-4 my-2 text-white rounded-lg bg-primary_blue hover:cursor-pointer">
+              Create Post
+            </button>
+          </form>
+        </div>
       </div>
     </>
   )

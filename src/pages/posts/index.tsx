@@ -6,6 +6,7 @@ import { trpc } from '../../utils/trpc'
 import dancecat from '../../../public/dancecat.gif'
 import zoomies from '../../../public/zoomies.gif'
 import Link from 'next/link'
+import { Post } from '@prisma/client'
 const Posts: NextPage = () => {
   // const { data, isLoading } = trpc.useQuery([
   //   'example.hello',
@@ -57,16 +58,76 @@ const Posts: NextPage = () => {
           <h3 className="font-extrabold text-1xl text-primary_blue">
             Post List
           </h3>
-          <h1 className="text-3xl font-bold hover:cursor-pointer hover:text-primary_blue">
-            {data && data.map((post) => post.title)}
-          </h1>
         </div>
-        <div className="w-4/5 mx-8 my-4">
-          <p> {data && data.map((post) => post.content)}</p>
-          <div className="w-32 p-2 font-bold text-center text-white rounded bg-primary_red"></div>
+        <div className="flex flex-col items-center justify-center w-screen my-4">
+          {data?.map((post: Post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+        <a
+          href="#"
+          className="flex flex-col items-center bg-white border rounded-lg shadow-md hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 md:max-w-xl md:flex-row"
+        >
+          <div className="w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg">
+            {/* <Image src={dancecat} objectFit="cover" /> */}
+          </div>
+          <div className="flex flex-col justify-between p-4 leading-normal">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              Noteworthy technology acquisitions 2021
+            </h5>
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Here are the biggest enterprise technology acquisitions of 2021 so
+              far, in reverse chronological order.
+            </p>
+          </div>
+        </a>
+        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800">
+          <a href="#" className="">
+            <Image src={dancecat} className="" />
+          </a>
+          <div className="p-5">
+            <a href="#">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Noteworthy technology acquisitions 2021
+              </h5>
+            </a>
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Here are the biggest enterprise technology acquisitions of 2021 so
+              far, in reverse chronological order.
+            </p>
+            <a
+              href="#"
+              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Read more
+              <svg
+                className="w-4 h-4 ml-2 -mr-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </>
+  )
+}
+
+const PostCard = ({ post }: { post: Post }) => {
+  return (
+    <div className="w-3/5 max-w-lg my-4 bg-blue-100">
+      <h3 className="text-3xl font-bold text-center hover:cursor-pointer hover:text-primary_blue">
+        {post.title}
+      </h3>
+      <p>{post.content}</p>
+    </div>
   )
 }
 
