@@ -7,6 +7,8 @@ import dancecat from '../../../public/dancecat.gif'
 import zoomies from '../../../public/zoomies.gif'
 import Link from 'next/link'
 import { Post } from '@prisma/client'
+import { Button, Card, Navbar } from 'flowbite-react'
+import { date } from 'zod'
 const Posts: NextPage = () => {
   // const { data, isLoading } = trpc.useQuery([
   //   'example.hello',
@@ -28,7 +30,7 @@ const Posts: NextPage = () => {
       </Head>
 
       {/* <!-- Navbar --> */}
-      <nav className="relative w-screen h-40 bg-primary_blue">
+      {/* <nav className="relative w-screen h-40 bg-primary_blue">
         <div className="flex items-center justify-between w-screen h-20 px-8">
           <div className="text-2xl font-semibold text-center text-white">
             De.bug Blog
@@ -37,14 +39,36 @@ const Posts: NextPage = () => {
             Menu
           </div>
         </div>
-      </nav>
-      <div className="absolute flex items-center justify-center w-screen overflow-visible top-16">
+      </nav> */}
+
+      <Navbar fluid={true} rounded={true}>
+        <Navbar.Brand>
+          <img
+            src="https://flowbite.com/docs/images/logo.svg"
+            className="h-6 mr-3 sm:h-9"
+            alt="Logo"
+          />
+          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+            De.bug Blog
+          </span>
+        </Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse>
+          <Navbar.Link href="/" active={true}>
+            Home
+          </Navbar.Link>
+          <Navbar.Link href="/">About</Navbar.Link>
+          <Navbar.Link href="/">Posts</Navbar.Link>
+        </Navbar.Collapse>
+      </Navbar>
+      <Navbar />
+      {/* <div className="absolute flex items-center justify-center w-screen overflow-visible top-16">
         <div className="w-auto h-auto">
           <Image objectFit="contain" src={zoomies} alt={'dancecat'} priority />
         </div>
-      </div>
+      </div> */}
 
-      <div className="flex flex-col w-screen h-screen bg-white">
+      <div className="flex flex-col items-center w-screen h-screen bg-gray-100 grow">
         <div className="relative w-32 h-32 mx-8 my-2 overflow-hidden rounded-full ring-2">
           <Image
             objectFit="cover"
@@ -59,46 +83,30 @@ const Posts: NextPage = () => {
             Post List
           </h3>
         </div>
-        <div className="flex flex-col items-center justify-center w-screen my-4">
+        <div className="flex flex-col items-center ">
           {data?.map((post: Post) => (
-            <PostCard post={post} />
+            <>
+              <PostCard post={post} />
+              <TestCard post={post} />
+            </>
           ))}
         </div>
-        <a
-          href="#"
-          className="flex flex-col items-center bg-white border rounded-lg shadow-md hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 md:max-w-xl md:flex-row"
-        >
-          <div className="w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg">
-            {/* <Image src={dancecat} objectFit="cover" /> */}
-          </div>
-          <div className="flex flex-col justify-between p-4 leading-normal">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <ul>
+          {data?.map((post: Post) => (
+            <BlogList post={post} />
+          ))}
+        </ul>
+        <div className=""></div>
+        <div>
+          <Card>
+            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               Noteworthy technology acquisitions 2021
             </h5>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <p className="font-normal text-gray-700 dark:text-gray-400">
               Here are the biggest enterprise technology acquisitions of 2021 so
               far, in reverse chronological order.
             </p>
-          </div>
-        </a>
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800">
-          <a href="#" className="">
-            <Image src={dancecat} className="" />
-          </a>
-          <div className="p-5">
-            <a href="#">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Noteworthy technology acquisitions 2021
-              </h5>
-            </a>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
-            </p>
-            <a
-              href="#"
-              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
+            <Button>
               Read more
               <svg
                 className="w-4 h-4 ml-2 -mr-1"
@@ -107,13 +115,13 @@ const Posts: NextPage = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
-                ></path>
+                  clipRule="evenodd"
+                />
               </svg>
-            </a>
-          </div>
+            </Button>
+          </Card>
         </div>
       </div>
     </>
@@ -122,12 +130,91 @@ const Posts: NextPage = () => {
 
 const PostCard = ({ post }: { post: Post }) => {
   return (
-    <div className="w-3/5 max-w-lg my-4 bg-blue-100">
-      <h3 className="text-3xl font-bold text-center hover:cursor-pointer hover:text-primary_blue">
-        {post.title}
-      </h3>
-      <p>{post.content}</p>
+    <div className="my-4">
+      <Card
+        imgAlt="Meaningful alt text for an image that is not purely decorative"
+        imgSrc="https://flowbite.com/docs/images/blog/image-1.jpg"
+        horizontal
+      >
+        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          {post.title}
+        </h5>
+        <p className="font-normal text-gray-700 dark:text-gray-400">
+          {post.content}
+        </p>
+        <div className="flex justify-end">
+          <Button>View Post</Button>
+        </div>
+      </Card>
     </div>
+  )
+}
+
+const TestCard = ({ post }: { post: Post }) => {
+  const imgSrc = 'https://flowbite.com/docs/images/blog/image-1.jpg'
+
+  return (
+    <article className="w-3/4 p-8 bg-white border rounded-lg shadow-md">
+      <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        {post.title}
+      </h5>
+      <p className="font-normal text-gray-700 break-words dark:text-gray-400">
+        {post.content}
+      </p>
+      <div className="flex justify-end ">
+        <button className="px-4 py-2 text-white bg-blue-700 rounded-md hover:bg-blue-900">
+          View Post
+        </button>
+      </div>
+    </article>
+  )
+}
+
+const BlogList = ({ post }: { post: Post }) => {
+  const { title, content } = post
+
+  return (
+    <li key={'slug'} className="py-4">
+      <article className="space-y-2 bg-white rounded-lg shadow-lg xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+        <dl>
+          <dt className="sr-only">Published on</dt>
+          <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+            <time dateTime={Date.now().toString()}>{Date.now()}</time>
+          </dd>
+        </dl>
+        <div className="space-y-3 xl:col-span-3">
+          <div>
+            <h3 className="text-2xl font-bold leading-8 tracking-tight">
+              <Link
+                href={`/blog/${'slug'}`}
+                className="text-gray-900 dark:text-gray-100"
+              >
+                {title}
+              </Link>
+            </h3>
+            <div className="flex flex-wrap">
+              {/* {tags.map((tag) => (
+                          <Tag key={tag} text={tag} />
+                        ))} */}
+              <Tag text={'Test tag'} />
+            </div>
+          </div>
+          <div className="prose text-gray-500 max-w-none dark:text-gray-400">
+            {content}
+          </div>
+        </div>
+      </article>
+    </li>
+  )
+}
+
+const Tag = ({ text }: { text: string }) => {
+  return (
+    <Link href={`/tags/${text}`}>
+      <a className="mr-3 text-sm font-medium uppercase text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+        {text.split(' ').join('-')}
+      </a>
+    </Link>
   )
 }
 

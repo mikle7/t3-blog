@@ -1,11 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import { trpc } from '../../utils/trpc'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { CreatePostSchema } from '../../schema/posts.schema'
+import { MutableRefObject, useRef } from 'react'
 
 const NewPost: NextPage = () => {
   const router = useRouter()
@@ -43,23 +42,39 @@ const NewPost: NextPage = () => {
           </h3>
         </div>
         <div className="container justify-center mx-auto">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col items-center p-10 m-10"
-          >
-            <input
-              type="text"
-              placeholder="Title"
-              {...register('title')}
-              className="w-3/5 p-2 border-t-2 border-gray-500 border-x-2"
-            />
-            <textarea
-              placeholder="Content"
-              {...register('content')}
-              className="w-3/5 p-2 border-2 border-gray-500"
-            />
-            <button className="p-4 my-2 text-white rounded-lg bg-primary_blue hover:cursor-pointer">
-              Create Post
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:border-gray-600 dark:bg-gray-700">
+              <input
+                type="text"
+                placeholder="Title"
+                {...register('title')}
+                className="w-3/5 p-2 border-t-2 border-gray-500 border-x-2"
+              />
+              <div className="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
+                <div className="flex flex-wrap items-center divide-gray-200 dark:divide-gray-600 sm:divide-x">
+                  <div className="flex items-center space-x-1 sm:pr-4"></div>
+                </div>
+                <div className="h-6"></div>
+              </div>
+              <div className="px-4 py-2 bg-white rounded-b-lg dark:bg-gray-800">
+                <label className="sr-only" form="editor">
+                  Publish post
+                </label>
+                <textarea
+                  rows={8}
+                  id="editor"
+                  className="block w-full px-0 text-sm text-gray-800 bg-white border-0 focus:ring-0 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
+                  placeholder="Write an article..."
+                  required
+                  {...register('content')}
+                ></textarea>
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900"
+            >
+              Publish post
             </button>
           </form>
         </div>
@@ -69,3 +84,47 @@ const NewPost: NextPage = () => {
 }
 
 export default NewPost
+
+interface InputProps {
+  ref: MutableRefObject<{}>
+}
+
+// const InputArea: React.FC<InputProps> = ({ ref }) => {
+//   return (
+//     <form>
+//       <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:border-gray-600 dark:bg-gray-700">
+//         <input
+//           type="text"
+//           placeholder="Title"
+//           // {...register('title')}
+//           className="w-3/5 p-2 border-t-2 border-gray-500 border-x-2"
+//         />
+//         <div className="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
+//           <div className="flex flex-wrap items-center divide-gray-200 dark:divide-gray-600 sm:divide-x">
+//             <div className="flex items-center space-x-1 sm:pr-4"></div>
+//           </div>
+//           <div className="h-6"></div>
+//         </div>
+//         <div className="px-4 py-2 bg-white rounded-b-lg dark:bg-gray-800">
+//           <label className="sr-only" form="editor">
+//             Publish post
+//           </label>
+//           <textarea
+//             rows={8}
+//             id="editor"
+//             className="block w-full px-0 text-sm text-gray-800 bg-white border-0 focus:ring-0 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
+//             placeholder="Write an article..."
+//             required
+//             // {...ref('content')}
+//           ></textarea>
+//         </div>
+//       </div>
+//       <button
+//         type="submit"
+//         className="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900"
+//       >
+//         Publish post
+//       </button>
+//     </form>
+//   )
+// }
