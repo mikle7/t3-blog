@@ -161,6 +161,7 @@ const TestCard = ({ post }: { post: Post }) => {
       <p className="font-normal text-gray-700 break-words dark:text-gray-400">
         {post.content}
       </p>
+      <p>{post.id}</p>
       <div className="flex justify-end ">
         <button className="px-4 py-2 text-white bg-blue-700 rounded-md hover:bg-blue-900">
           View Post

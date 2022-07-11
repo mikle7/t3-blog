@@ -7,4 +7,6 @@ export const createPostSchema = z.object({
 
 export type CreatePostSchema = z.TypeOf<typeof createPostSchema>
 
-// export const getSinglePostSchema
+export const getSinglePostSchema = z.object({
+  postId: z.string(),
+})
