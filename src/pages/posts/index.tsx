@@ -164,7 +164,7 @@ const TestCard = ({ post }: { post: Post }) => {
       <p>{post.id}</p>
       <div className="flex justify-end ">
         <button className="px-4 py-2 text-white bg-blue-700 rounded-md hover:bg-blue-900">
-          View Post
+          <Link href={`/posts/${post.id}`}>View Post</Link>
         </button>
       </div>
     </article>
